@@ -39,7 +39,7 @@ app.get('/api/health', (req, res) => {
 
 app.post('/api/init-lockers', async (req, res) => {
   try {
-    const slots = Array.from({ length: 20 }, (_, index) => ({
+    const slots = Array.from({ length: 12 }, (_, index) => ({
       slot_number: index + 1,
       status: 'available'
     }));
@@ -47,7 +47,7 @@ app.post('/api/init-lockers', async (req, res) => {
     const { error } = await supabase.from('locker_slots').upsert(slots, { onConflict: ['slot_number'] });
     if (error) throw error;
 
-    res.json({ message: '20 locker slots initialized!' });
+    res.json({ message: '12 locker slots initialized!' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
